@@ -3,10 +3,10 @@ services:
   db:
     platform: linux/x86_64
     image: mysql:5.7.36
-    container_name: "mysql_test"
+    container_name: "mysql"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mysql_test_db
+      MYSQL_DATABASE: housework_schedule
       MYSQL_USER: admin
       MYSQL_PASSWORD: secret
       TZ: 'Asia/Tokyo'
@@ -17,9 +17,9 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     # 名前付きボリュームを設定する（名前付きボリューム:コンテナ側ボリュームの場所）
     volumes:
-      - db_data_test:/var/lib/mysql
-      - db_my.cnf_test:/etc/mysql/conf.d/my.cnf
-      - db_sql_test:/docker-entrypoint-initdb.d
+      - housework_schedule:/var/lib/mysql
+      - db_my.cnf:/etc/mysql/conf.d/my.cnf
+      - db_sql:/docker-entrypoint-initdb.d
 
   php:
     build: ./docker/php
@@ -30,7 +30,7 @@ services:
 
   nginx:
     image: nginx:latest
-    container_name: "nginx_test"
+    container_name: "nginx"
     # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
     ports:
       - 80:80
@@ -41,24 +41,6 @@ services:
     # サービスの依存関係を指定（nginxをphpに依存させる）
     depends_on:
       - php
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: "phpmyadmin_test"
-    environment:
-      - PMA_ARBITRARY=1 # サーバ設定：サーバーをローカル以外も指定
-      - PMA_HOST=db # ホスト設定：dbを指定
-      - PMA_USER=admin # 初期ユーザー設定：adminを指定
-      - PMA_PASSWORD=secret # 初期PW設定：secretを指定
-    # db（サービス名）とのリンクを設定する
-    links:
-      - db
-    # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
-    ports:
-      - 8080:80
-    # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
-    volumes:
-      - ./phpmyadmin/sessions:/sessions
 
   node:
     image: node:14.18-alpine
@@ -71,15 +53,8 @@ services:
     # コンテナ起動後のカレントディレクトリを設定
     working_dir: /var/www
 
-  mail:
-    image: mailhog/mailhog
-    container_name: "mailhog"
-    # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
-    ports:
-      - 8025:8025
-
 # サービスレベルで名前付きボリュームを命名する
 volumes:
-  db_data_test:
-  db_my.cnf_test:
-  db_sql_test:
+  housework_schedule:
+  db_my.cnf:
+  db_sql:

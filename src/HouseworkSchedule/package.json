@@ -24,5 +24,11 @@
         "sass": "^1.56.1",
         "sass-loader": "^12.6.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "@fullcalendar/core": "^6.1.11",
+        "@fullcalendar/daygrid": "^6.1.11",
+        "@fullcalendar/list": "^6.1.11",
+        "@fullcalendar/react": "^6.1.11",
+        "@fullcalendar/timegrid": "^6.1.11"
+    }
 }
