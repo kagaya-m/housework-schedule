@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->longText('detail');
+            $table->longText('detail')->nullable();
             $table->date('due_date');
             $table->boolean('is_complete')->default(0);
-            $table->date('complete_date')->nullable();
             $table->boolean('is_repeat')->default(0);
             $table->integer('cycle_unit')->nullable();
             $table->integer('cycle_num')->nullable();
