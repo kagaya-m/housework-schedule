@@ -45,8 +45,6 @@ function CreateDialog(props){
                     <MenuItem value="3">リビング</MenuItem>
                 </Select>
                 <TextField margin="dense" id="detail" name="detail" label="詳細" type="text" fullWidth variant="standard" onChange={inputChange} />
-                {/*<InputLabel id="complete_label">完了</InputLabel>*/}
-                {/*<Checkbox margin="dense" id="is_complete" name="is_complete" label="完了" type="checkbox" fullWidth variant="standard" onChange={inputChange} />*/}
                 <Select labelId="is_complete" id="is_complete_select" name="is_complete" label="is_complete" variant="standard" defaultValue="0" onChange={inputChange}>
                     <MenuItem value="0">未</MenuItem>
                     <MenuItem value="1">済</MenuItem>

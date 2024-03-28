@@ -3,8 +3,8 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import ReactDOM from "react-dom/client";
 
 export default function ButtonAppBar() {
     return (
@@ -26,4 +26,14 @@ export default function ButtonAppBar() {
             </AppBar>
         </Box>
     );
+}
+
+if (document.getElementById('header')) {
+    const Index = ReactDOM.createRoot(document.getElementById("header"));
+
+    Index.render(
+        <React.StrictMode>
+            <ButtonAppBar/>
+        </React.StrictMode>
+    )
 }

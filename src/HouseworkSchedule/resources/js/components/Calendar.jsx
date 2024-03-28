@@ -6,10 +6,8 @@ import jaLocale from '@fullcalendar/core/locales/ja';
 import interactionPlugin from '@fullcalendar/interaction';
 import CreateDialog from "./create/CreateDialog";
 import UpdateDialog from "./update/UpdateDialog";
-import Header from "./Header"
 import GetSchedule from "./Schedule";
 import axios from "axios";
-//import './App.css';
 
 function Calendar() {
     const[open,setOpen] = useState(false);
@@ -94,7 +92,6 @@ function Calendar() {
 
     return (
         <div>
-            <Header />
             <FullCalendar
                 plugins={[dayGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
