@@ -8,6 +8,7 @@ import CreateDialog from "./create/CreateDialog";
 import UpdateDialog from "./update/UpdateDialog";
 import Header from "./Header"
 import GetSchedule from "./Schedule";
+import axios from "axios";
 //import './App.css';
 
 function Calendar() {
@@ -68,6 +69,29 @@ function Calendar() {
             });
     }
 
+    function formatDate(date) {
+        const d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('-');
+    }
+    const handleEventDrop = async(eventDropInfo) => {
+        const eventId = eventDropInfo.event.id;
+        const newDate = formatDate(eventDropInfo.event.start);
+        console.log(newDate);
+
+        await axios
+            .post('/api/updateDate',{
+                id:eventId,
+                due_date:newDate,
+            })
+            .catch(error=>{
+                console.log(error);
+            })
+    }
+
     return (
         <div>
             <Header />
@@ -79,9 +103,9 @@ function Calendar() {
                 events={rows}
                 dateClick={handleClickOpen}
                 selectable={true}
-                selectMirror={true}
                 eventClick={editHandleClickOpen}
                 editable={true}
+                eventDrop={handleEventDrop}
                 contentHeight={'auto'}
             />
 

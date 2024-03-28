@@ -44,6 +44,14 @@ class ScheduleController extends Controller
         return $schedules;
     }
 
+    public function updateDate(Request $request)
+    {
+        $schedules = Schedule::find($request->id);
+        $schedules->due_date = $request->due_date;
+        $schedules->save();
+        return $schedules;
+    }
+
     public function delete(Request $request)
     {
         $schedule = Schedule::find($request->id);
